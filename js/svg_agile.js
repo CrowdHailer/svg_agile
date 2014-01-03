@@ -68,8 +68,8 @@ var svgAgile = {
 	
 	touchHandler: function (evt) {
 		svgAgile.moveGroup = svgAgile.agileGroup;
-		svgAgile.draglastX = 0;
-		svgAgile.draglastY = 0;
+		//svgAgile.draglastX = 0;
+		//svgAgile.draglastY = 0;
 	},
 	dragstartHandler: function (evt) {
 		if	(svgAgile.moveGroup) {
@@ -81,10 +81,10 @@ var svgAgile = {
 		if (evt.gesture.timeStamp - svgAgile.lastEvent > svgAgile.MIN_EVENT_DELAY && (svgAgile.moveGroup)) {
 			svgAgile.lastEvent = evt.gesture.timeStamp
 			
-			var dx = evt.gesture.deltaX - svgAgile.draglastX;
-			var dy = evt.gesture.deltaY - svgAgile.draglastY;
+			var dx = evt.gesture.deltaX;
+			var dy = evt.gesture.deltaY;
 			var scale = svgAgile.scale;
-			//console.log(evt.gesture.deltaX);
+
 			svgAgile.dragIt(scale*dx, scale*dy);
 		}
 	},
@@ -93,11 +93,11 @@ var svgAgile = {
 			var dx = evt.gesture.deltaX;
 			var dy = evt.gesture.deltaY;
 			var scale = svgAgile.scale;
-			//console.log(evt.type);
+
 			svgAgile.moveGroup.transMatrix = svgAgile.dragIt(scale*dx, scale*dy);
 			
-			svgAgile.draglastX = dx;
-			svgAgile.draglastY = dy;
+			//svgAgile.draglastX = dx;
+			//svgAgile.draglastY = dy;
 		}
 	},
 	transformstartHandler: function (evt) {

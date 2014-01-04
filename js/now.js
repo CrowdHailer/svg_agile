@@ -5,6 +5,21 @@ Hammer.plugins.showTouches();
 
 console.log('Hammer Plugins Loaded');
 
+function agileEntity (element) {
+	this.element = element,
+	this.anchor = 2, //condense and simply transform list. save as svgtransform object
+	//set a home transform again as svgTransform object
+	
+}
+agileEntity.prototype = {
+	//update anchor
+	//pan zoom with live effect on screen
+	//undo function 
+	//show all function has funny meaning with multiple draggable groups
+	// test if member of given svg element
+	//apply hammer to parent svg add a find parent group method.
+}
+
 var svgAgile = {
 	MIN_DELAY: 60,
 	init: function (idList) {

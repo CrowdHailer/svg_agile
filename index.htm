@@ -19,7 +19,7 @@
 </head>
 <body>
 	<svg id="svgDocument" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 2000 1000">
-		<g id="manoeuvrable-svg" >
+		<g id="manoeuvrable-svg" transform="translate(120 300) scale(0.9)">
 			<rect height="1000" width="2000" y="0" x="0" fill="#afe9c6"/>
 			<path data-line="two" d="M20,980,1980,20" stroke="#00aad4" stroke-width="10" fill="none"/>
 			<path data-line="one" d="M20,20,1980,980" stroke="#00aad4" stroke-width="10" fill="none"/>
@@ -34,19 +34,11 @@
 			<li id="zoom-button" >zoom</li>
 		</ul>
 	</div>
+	
 	<script src="js/hammer.min.js"></script>
 	<script src="js/hammer.fakemultitouch.js"></script>
 	<script src="js/hammer.showtouches.js"></script>
-	<script src="js/transform_matrix.js"></script>
-	<script src="js/svg_agile.js"></script>
-	<script src="js/mouse_handler.js"></script>
-	<script src="js/app.js"></script>
-
+	<script src="js/now.js"></script>
 	
-	<!--<script src="move.js"></script>
-	<script src="plugins/swishload.js"></script>
-	<script src="plugins/tapmanager.js"></script>
-	<script src="plugins/mousewheel.js"></script>
-	<script src="app.js"></script>-->
 </body>
 </html>

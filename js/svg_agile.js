@@ -2,9 +2,28 @@ function agileGroup (elementId) {
 	this.elementId = elementId;
 	this.agileElement = document.getElementById(elementId)
 	
-	this.parentSVG = this.findParentSVG() //requires agile element
+	//this.parentSVG = this.findParentSVG() //requires agile element
+	this.parentSVG = this.agileElement.ownerSVGElement
 	
 	this.transMatrix = this.toTransformMatrix(this.getTransform());
+	var first = this.agileElement.transform.baseVal.getItem(0).matrix;
+	var second = this.agileElement.transform.baseVal.getItem(1).matrix;
+	console.log(first);
+	first.multiply(second);
+	console.log(first.multiply(second));
+	//this.agileElement.transform.baseVal.initialize(first.multiply(second));
+	
+	var staticTransform = this.agileElement.transform.baseVal;
+	
+	var i = 1;
+	var result = staticTransform.getItem(0) || this.parentSVG.createSVGTransform;
+	console.log(result.matrix);
+	/*if(staticTransform.getItem(2)) {
+		console.log('smell');
+	} else {
+		console.log('bingo');
+	}*/
+	console.log(staticTransform['a']);
 	//find viewbox in master
 };
 
@@ -95,7 +114,10 @@ var svgAgile = {
 			var scale = svgAgile.scale;
 
 			svgAgile.moveGroup.transMatrix = svgAgile.dragIt(scale*dx, scale*dy);
-			
+			//var newMat = svgAgile.moveGroup.agileElement.transform.baseVal.getItem(0).matrix.scale(2);
+			//svgAgile.moveGroup.agileElement.transform.baseVal.getItem(0).setMatrix(newMat);
+			//console.log(Object.keys(svgAgile.svgElement));
+			//console.log(svgAgile.svgElement == svgAgile.moveGroup.agileElement.ownerSVGElement)
 			//svgAgile.draglastX = dx;
 			//svgAgile.draglastY = dy;
 		}
@@ -111,7 +133,7 @@ var svgAgile = {
 			
 			var scale = evt.gesture.scale;
 			var zoomAt = svgAgile.getViewboxCoords(evt.gesture.center.pageX, evt.gesture.center.pageY);
-			console.log(evt.gesture.scale);
+			//console.log(evt.gesture.scale);
 			svgAgile.zoomIt(scale, zoomAt);
 		}
 	},

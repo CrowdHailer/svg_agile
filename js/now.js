@@ -51,19 +51,14 @@ agileEntity.prototype = {
 		point.y = G.center.pageY;
 		
 		var CTM = owner.getScreenCTM();
-		//console.log('first', point);
-		
 		point = point.matrixTransform(CTM.inverse());
 		
-		//console.log(point);
-		
-		var newMatrix = this.anchor.matrix.scale(scale);
+		var newMatrix = this.anchor.matrix.translate((1-scale)*point.x,(1-scale)*point.y).scale(scale);
 		var newTransform = owner.createSVGTransform();
 		
 		newTransform.setMatrix(newMatrix);
 		
 		this.element.transform.baseVal.initialize(newTransform);
-		
 	},
 	update: function () {
 		this.anchor = this.element.transform.baseVal.getItem(0)
@@ -71,8 +66,6 @@ agileEntity.prototype = {
 	undo: function () {
 	
 	},
-	
-
 }
 
 var svgAgile = {
@@ -180,14 +173,32 @@ svgAgile.plugins.mouseWheel = {
 	handleMouseWheel: function (evt) {
 		var self = svgAgile.plugins.mouseWheel;
 		evt = self.EventUtil.getEvent(evt);
+		
 		var delta = self.EventUtil.getWheelDelta(evt);
-		var k = Math.pow(2,delta/720);
+		var scale = Math.pow(2,delta/720);
 		
 		var agileGroup = svgAgile.getContainingAgileEntity(evt.target);
+		
 		console.log(agileGroup);
-		//svgManoeuvre.startMatrix = svgManoeuvre.transMatrix.slice(0);
-		//svgManoeuvre.zoomPage(k, evt.pageX, evt.pageY);
-		console.log(k);
+		if (!agileGroup) return;
+		agileGroup.update();
+		
+		var owner = agileGroup.element.ownerSVGElement;
+		var point = owner.createSVGPoint();
+		point.x = evt.pageX;
+		point.y = evt.pageY;
+		console.log(point);
+		var CTM = owner.getScreenCTM();
+		point = point.matrixTransform(CTM.inverse());
+		
+		//var newMatrix = this.anchor.matrix.scale(scale);
+		var newMatrix = agileGroup.anchor.matrix.translate((1-scale)*point.x,(1-scale)*point.y).scale(scale);
+		var newTransform = owner.createSVGTransform();
+		
+		newTransform.setMatrix(newMatrix);
+		
+		agileGroup.element.transform.baseVal.initialize(newTransform);
+		
 	},
 	init: function () {
 		var self = svgAgile.plugins.mouseWheel;

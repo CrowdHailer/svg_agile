@@ -48,7 +48,7 @@ var svgAgile = {
 		}
 	},
 	plugins: {}
-}
+};
 svgAgile.plugins.swishly = {
 	init: function () {
 		svgAgile.hammertime.on('hold', this.holdHandler);
@@ -77,7 +77,7 @@ svgAgile.plugins.swishly = {
 	release: function (evt) {
 		svgAgile.plugins.swishly.activity('off');
 	}
-}
+};
 
 svgAgile.init('manoeuvrable-svg');
 svgAgile.plugins.swishly.init();

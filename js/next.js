@@ -54,9 +54,14 @@ svgAgile.plugins.swishly = {
 		svgAgile.hammertime.on('hold', this.holdHandler);
 	},
 	holdHandler: function (evt) {
-		console.log('holding');
-		svgAgile.activity('off');
-		svgAgile.plugins.swishly.activity('on');
+		var element = evt.target;
+		var dataName = 'station'
+		var dataValue = element.getAttribute('data-' + dataName);
+		if (dataValue) {
+			console.log('holding');
+			svgAgile.activity('off');
+			svgAgile.plugins.swishly.activity('on');
+		}
 	},
 	activity: function (option) {
 		svgAgile.hammertime[option]('dragstart', this.dragstart);

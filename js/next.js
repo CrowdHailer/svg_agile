@@ -89,9 +89,9 @@ svgAgile.plugins.tapManager = {
 		this.callbacks = callbacks;
 	},
 	tapHandler: function (evt) {
-		var id = evt.target.id || 'DEFAULT'; //get id of element
 		var callbacks = svgAgile.plugins.tapManager.callbacks 
-		var callback = callbacks[id] || callbacks['DEFAULT']; //check for call back or again run DEFAUT
+		var callback = callbacks[evt.target.id] || callbacks['DEFAULT']; //check for call back or again run DEFAUT
+		
 		callbacks['FIRST'](evt);
 		callback(evt);
 		callbacks['FINALLY'](evt);

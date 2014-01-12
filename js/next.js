@@ -70,6 +70,7 @@ svgAgile.plugins.mouseWheel = {
 		var self = svgAgile.plugins.mouseWheel;
 		evt = self.EventUtil.getEvent(evt);
 		
+		console.log(svgAgile.getContainingGroup(evt.target,svgAgile.containerId));
 		var delta = self.EventUtil.getWheelDelta(evt);
 		var scale = Math.pow(2,delta/720);
 		

@@ -84,7 +84,7 @@ svgAgile.plugins.tapManager = {
 		
 		if(!callbacks['DEFAULT']) callbacks['DEFAULT'] = this.TAP_DEFAULT;
 		if(!callbacks['FIRST']) callbacks['FIRST'] = this.TAP_FIRST;
-		if(!callbacks['FINALLY']) callbacks['FINALLY'] = this.TAP_FINALLY;
+		if(!callbacks['LAST']) callbacks['LAST'] = this.TAP_LAST;
 
 		this.callbacks = callbacks;
 	},
@@ -94,12 +94,12 @@ svgAgile.plugins.tapManager = {
 		
 		callbacks['FIRST'](evt);
 		callback(evt);
-		callbacks['FINALLY'](evt);
+		callbacks['LAST'](evt);
 		//console.log(Object.keys(evt.target)); SUPER USEFUL LINE REMEMBER
 	},
 	TAP_DEFAULT: function (evt) {},
 	TAP_FIRST: function (evt) {},
-	TAP_FINALLY: function (evt) {}
+	TAP_LAST: function (evt) {}
 };
 
 var tapFunctions = {
@@ -115,6 +115,9 @@ var tapFunctions = {
 	},
 	FIRST: function (evt) {
 		console.log('always print this');
+	},
+	LAST: function (evt) {
+		console.log("and finally");
 	}
 };
 

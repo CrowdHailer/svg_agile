@@ -80,7 +80,7 @@ svgAgile.plugins.swishly = {
 //MouseWheel plugin
 svgAgile.plugins.tapManager = {
 	init: function (callbacks) {
-		svgAgile.gestureHandlers.tap = this.tapHandler;
+		svgAgile.hammertime.on('tap', this.tapHandler);
 		
 		
 		if(!callbacks['DEFAULT']) {
@@ -109,5 +109,22 @@ svgAgile.plugins.tapManager = {
 	TAP_FINALLY: function (evt) {}
 };
 
+var tapFunctions = {
+	// id: function (evt) {}
+	'home-button': function (evt) {
+		console.log('Clicked Home Button');
+	},
+	'goTo-button': function (evt) {
+		console.log('Clicked go-to button');
+	},
+	DEFAULT: function (evt) {
+		console.log('Default tap response');
+	},
+	FIRST: function (evt) {
+		console.log('always print this');
+	}
+};
+
 svgAgile.init('manoeuvrable-svg');
 svgAgile.plugins.swishly.init('station');
+svgAgile.plugins.tapManager.init(tapFunctions);

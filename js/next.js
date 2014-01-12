@@ -21,20 +21,17 @@ var svgAgile = {
 		this.hammertime[option]('release', this.release);
 	},
 	dragstart: function (evt) {
+		//Turn off high detail groups at this point
 		console.log('Dragging with svgAgile');
 		svgAgile.lastTimeStamp = evt.gesture.timeStamp;
-		
 		svgAgile.scale = svgAgile.activeNode.ownerSVGElement.getScreenCTM().inverse().a
-		
 	},
 	drag: function (evt) {
 		var G = evt.gesture;
 		if (G.timeStamp - svgAgile.lastTimeStamp < svgAgile.MIN_DELAY) return;
 		svgAgile.lastTimeStamp = G.timeStamp;
 		//Else from here
-		
 		console.log(G.timeStamp);
-		
 	},
 	release: function (evt) {
 		console.log(this);
@@ -76,9 +73,13 @@ svgAgile.plugins.swishly = {
 		svgAgile.plugins.swishly.activity('off');
 	},
 	getData: function (element, label) {
+		//Update to include parent data.
 		return element.getAttribute('data-' + label);
 	}
 };
+
+//MouseWheel plugin
+
 
 svgAgile.init('manoeuvrable-svg');
 svgAgile.plugins.swishly.init('station');

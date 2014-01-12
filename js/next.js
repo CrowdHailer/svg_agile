@@ -82,17 +82,10 @@ svgAgile.plugins.tapManager = {
 	init: function (callbacks) {
 		svgAgile.hammertime.on('tap', this.tapHandler);
 		
-		
-		if(!callbacks['DEFAULT']) {
-			callbacks['DEFAULT'] = this.TAP_DEFAULT;
-		}
-		if(!callbacks['FIRST']) {
-			callbacks['FIRST'] = this.TAP_FIRST;
-		}
-		if(!callbacks['FINALLY']) {
-			callbacks['FINALLY'] = this.TAP_FINALLY;
-		}
-		
+		if(!callbacks['DEFAULT']) callbacks['DEFAULT'] = this.TAP_DEFAULT;
+		if(!callbacks['FIRST']) callbacks['FIRST'] = this.TAP_FIRST;
+		if(!callbacks['FINALLY']) callbacks['FINALLY'] = this.TAP_FINALLY;
+
 		this.callbacks = callbacks;
 	},
 	tapHandler: function (evt) {

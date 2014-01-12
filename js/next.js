@@ -44,6 +44,50 @@ var svgAgile = {
 	},
 	plugins: {}
 };
+svgAgile.plugins.mouseWheel = {
+	EventUtil: {
+		addHandler: function (element, type, handler) {
+			if (element.addEventListener) {
+					element.addEventListener(type, handler, false);
+			} else if (element.attachEvent) {
+					element.attachEvent("on" + type, handler);
+			} else {
+					element["on" + type] = handler;
+			}
+		},
+		getEvent: function(event) {
+			return event ? event : window.event;
+		},
+		getWheelDelta: function (event) {
+			if (event.wheelDelta) {
+				return event.wheelDelta;
+			} else {
+				return -event.detail * 40;
+			}
+		}
+	},
+	handleMouseWheel: function (evt) {
+		var self = svgAgile.plugins.mouseWheel;
+		evt = self.EventUtil.getEvent(evt);
+		
+		var delta = self.EventUtil.getWheelDelta(evt);
+		var scale = Math.pow(2,delta/720);
+		
+		svgAgile.zoomgroup = svgAgile.agileGroup;
+		//PLACEHOLDER FOR ZOOM ACTION
+		console.log('Zooming at scale ', scale)
+		//var zoomAt = svgAgile.getViewboxCoords(evt.pageX, evt.pageY);
+		
+		//svgAgile.zoomgroup.transMatrix = svgAgile.zoomIt(scale, zoomAt);
+		//svgAgile.zoomgroup = false;
+	},
+	init: function () {
+		var self = svgAgile.plugins.mouseWheel;
+		self.EventUtil.addHandler(document, "mousewheel", this.handleMouseWheel);
+		self.EventUtil.addHandler(document, "DOMMouseScroll", this.handleMouseWheel);
+
+	}
+};
 svgAgile.plugins.swishly = {
 	init: function (dataLabel) {
 		svgAgile.swishlyDataLabel = dataLabel;
@@ -76,8 +120,6 @@ svgAgile.plugins.swishly = {
 		return element.getAttribute('data-' + label);
 	}
 };
-
-//MouseWheel plugin
 svgAgile.plugins.tapManager = {
 	init: function (callbacks) {
 		svgAgile.hammertime.on('tap', this.tapHandler);
@@ -101,7 +143,6 @@ svgAgile.plugins.tapManager = {
 	TAP_FIRST: function (evt) {},
 	TAP_LAST: function (evt) {}
 };
-
 var tapFunctions = {
 	// id: function (evt) {}
 	'home-button': function (evt) {
@@ -122,5 +163,6 @@ var tapFunctions = {
 };
 
 svgAgile.init('manoeuvrable-svg');
+svgAgile.plugins.mouseWheel.init();
 svgAgile.plugins.swishly.init('station');
 svgAgile.plugins.tapManager.init(tapFunctions);

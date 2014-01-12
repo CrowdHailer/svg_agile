@@ -70,17 +70,19 @@ svgAgile.plugins.mouseWheel = {
 		var self = svgAgile.plugins.mouseWheel;
 		evt = self.EventUtil.getEvent(evt);
 		
-		console.log(svgAgile.getContainingGroup(evt.target,svgAgile.containerId));
-		var delta = self.EventUtil.getWheelDelta(evt);
-		var scale = Math.pow(2,delta/720);
-		
-		svgAgile.zoomgroup = svgAgile.agileGroup;
-		//PLACEHOLDER FOR ZOOM ACTION
-		console.log('Zooming at scale ', scale)
-		//var zoomAt = svgAgile.getViewboxCoords(evt.pageX, evt.pageY);
-		
-		//svgAgile.zoomgroup.transMatrix = svgAgile.zoomIt(scale, zoomAt);
-		//svgAgile.zoomgroup = false;
+		var node = svgAgile.getContainingGroup(evt.target,svgAgile.containerId);
+		if (node) {
+			var delta = self.EventUtil.getWheelDelta(evt);
+			var scale = Math.pow(2,delta/720);
+			
+			svgAgile.zoomgroup = svgAgile.agileGroup;
+			//PLACEHOLDER FOR ZOOM ACTION
+			console.log('Zooming at scale ', scale)
+			//var zoomAt = svgAgile.getViewboxCoords(evt.pageX, evt.pageY);
+			
+			//svgAgile.zoomgroup.transMatrix = svgAgile.zoomIt(scale, zoomAt);
+			//svgAgile.zoomgroup = false;
+		}
 	},
 	init: function () {
 		var self = svgAgile.plugins.mouseWheel;

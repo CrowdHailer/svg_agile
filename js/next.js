@@ -3,7 +3,6 @@ var svgAgile = {
 	init: function (id) {
 		console.log('starting');
 		this.containerId = id;
-		
 		this.hammertime = Hammer(document).on('touch', this.touchHandler);
 	},
 	touchHandler: function (evt) {
@@ -50,15 +49,14 @@ var svgAgile = {
 	plugins: {}
 };
 svgAgile.plugins.swishly = {
-	init: function () {
+	init: function (dataLabel) {
+		svgAgile.swishlyDataLabel = dataLabel;
 		svgAgile.hammertime.on('hold', this.holdHandler);
 	},
 	holdHandler: function (evt) {
-		var element = evt.target;
-		var dataName = 'station'
-		var dataValue = element.getAttribute('data-' + dataName);
+		var dataValue = svgAgile.plugins.swishly.getData(evt.target, svgAgile.swishlyDataLabel);
 		if (dataValue) {
-			console.log('holding');
+			console.log('holding with data value ', dataValue);
 			svgAgile.activity('off');
 			svgAgile.plugins.swishly.activity('on');
 		}
@@ -76,8 +74,11 @@ svgAgile.plugins.swishly = {
 	},
 	release: function (evt) {
 		svgAgile.plugins.swishly.activity('off');
+	},
+	getData: function (element, label) {
+		return element.getAttribute('data-' + label);
 	}
 };
 
 svgAgile.init('manoeuvrable-svg');
-svgAgile.plugins.swishly.init();
+svgAgile.plugins.swishly.init('station');

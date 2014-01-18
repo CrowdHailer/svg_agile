@@ -17,7 +17,6 @@ var svgAgile = {
 		if (option != 'on' && option != 'off') return;
 		this.hammertime[option]('dragstart', this.dragstart);
 		this.hammertime[option]('drag', this.drag);
-		this.hammertime[option]('dragend', this.dragend);
 		this.hammertime[option]('release', this.release);
 	},
 	dragstart: function (evt) {

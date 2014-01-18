@@ -22,16 +22,30 @@ var svgAgile = {
 	},
 	dragstart: function (evt) {
 		//Turn off high detail groups at this point
-		console.log('Dragging with svgAgile');
 		svgAgile.lastTimeStamp = evt.gesture.timeStamp;
+		
 		svgAgile.scale = svgAgile.activeNode.ownerSVGElement.getScreenCTM().inverse().a
+		svgAgile.anchor = svgAgile.activeNode.transform.baseVal.getItem(0)
 	},
 	drag: function (evt) {
 		var G = evt.gesture;
 		if (G.timeStamp - svgAgile.lastTimeStamp < svgAgile.MIN_DELAY) return;
 		svgAgile.lastTimeStamp = G.timeStamp;
 		//Else from here
-		console.log(G.timeStamp);
+		
+		var scale = svgAgile.scale;
+		var dx = G.deltaX;
+		var dy = G.deltaY;
+		
+		var newMatrix = svgAgile.anchor.matrix.translate(scale*dx,scale*dy);
+		
+		var newTransform = svgAgile.activeNode.ownerSVGElement.createSVGTransform();
+		
+		newTransform.setMatrix(newMatrix);
+		
+		svgAgile.activeNode.transform.baseVal.initialize(newTransform);
+		
+		console.log(newMatrix);
 	},
 	release: function (evt) {
 		svgAgile.activity('off');

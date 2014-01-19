@@ -26,13 +26,14 @@ var svgAgile = {
 		svgAgile.lastTimeStamp = evt.gesture.timeStamp;
 		
 		svgAgile.scale = svgAgile.activeNode.ownerSVGElement.getScreenCTM().inverse().a
-		svgAgile.anchor = svgAgile.activeNode.transform.baseVal.getItem(0)
+		svgAgile.anchor = svgAgile.activeNode.transform.baseVal.getItem(0);
 	},
 	transformstart: function (evt) {
-		console.log("transform start");
+		svgAgile.lastTimeStamp = evt.gesture.timeStamp;
+		svgAgile.anchor = svgAgile.activeNode.transform.baseVal.getItem(0);
 	},
 	transform: function (evt) {
-		console.log("transform")
+		svgAgile.zoom(evt);
 	},
 	drag: function (evt) {
 		var G = evt.gesture;
@@ -69,7 +70,7 @@ var svgAgile = {
 		var CTM = owner.getScreenCTM();
 		point = point.matrixTransform(CTM.inverse());
 		
-		var newMatrix = avgAgile.anchor.matrix.translate((1-scale)*point.x,(1-scale)*point.y).scale(scale);
+		var newMatrix = svgAgile.anchor.matrix.translate((1-scale)*point.x,(1-scale)*point.y).scale(scale);
 		var newTransform = owner.createSVGTransform();
 		
 		newTransform.setMatrix(newMatrix);

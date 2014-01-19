@@ -110,7 +110,21 @@ svgAgile.plugins.mouseWheel = {
 			var delta = self.EventUtil.getWheelDelta(evt);
 			var scale = Math.pow(2,delta/720);
 			
-			svgAgile.zoomgroup = svgAgile.agileGroup;
+			var owner = node.ownerSVGElement;
+			var point = owner.createSVGPoint();
+			
+			point.x = evt.pageX;
+			point.y = evt.pageY;
+			
+			var CTM = owner.getScreenCTM();
+			point = point.matrixTransform(CTM.inverse());
+			
+			var newMatrix = svgAgile.anchor.matrix.translate((1-scale)*point.x,(1-scale)*point.y).scale(scale);
+			var newTransform = owner.createSVGTransform();
+			
+			newTransform.setMatrix(newMatrix);
+		
+			svgAgile.activeNode.transform.baseVal.initialize(newTransform);
 			//PLACEHOLDER FOR ZOOM ACTION
 			console.log('Zooming at scale ', scale)
 			//var zoomAt = svgAgile.getViewboxCoords(evt.pageX, evt.pageY);

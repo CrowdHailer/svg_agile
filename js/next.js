@@ -77,6 +77,9 @@ var svgAgile = {
 			node = node.parentNode;
 		}
 	},
+	dropAnchor: function (target) {
+		svgAgile.anchor = target.transform.baseVal.getItem(0)
+	},
 	plugins: {}
 };
 svgAgile.plugins.mouseWheel = {
@@ -125,6 +128,8 @@ svgAgile.plugins.mouseWheel = {
 			newTransform.setMatrix(newMatrix);
 		
 			svgAgile.activeNode.transform.baseVal.initialize(newTransform);
+			
+			svgAgile.dropAnchor(node);
 			//PLACEHOLDER FOR ZOOM ACTION
 			console.log('Zooming at scale ', scale)
 			//var zoomAt = svgAgile.getViewboxCoords(evt.pageX, evt.pageY);

@@ -17,6 +17,8 @@ var svgAgile = {
 		if (option != 'on' && option != 'off') return;
 		this.hammertime[option]('dragstart', this.dragstart);
 		this.hammertime[option]('drag', this.drag);
+		this.hammertime[option]('transformstart', this.transformstart);
+		this.hammertime[option]('transform', this.transform);
 		this.hammertime[option]('release', this.release);
 	},
 	dragstart: function (evt) {
@@ -25,6 +27,12 @@ var svgAgile = {
 		
 		svgAgile.scale = svgAgile.activeNode.ownerSVGElement.getScreenCTM().inverse().a
 		svgAgile.anchor = svgAgile.activeNode.transform.baseVal.getItem(0)
+	},
+	transformstart: function (evt) {
+		console.log("transform start");
+	},
+	transform: function (evt) {
+		console.log("transform")
 	},
 	drag: function (evt) {
 		var G = evt.gesture;

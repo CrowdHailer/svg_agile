@@ -46,6 +46,28 @@ var svgAgile = {
 		
 		console.log(newMatrix);
 	},
+	zoom: function (evt) {
+		var G = evt.gesture;
+		if (G.timeStamp - svgAgile.lastTimeStamp < svgAgile.MIN_DELAY) return;
+		svgAgile.lastTimeStamp = G.timeStamp;
+		
+		var scale = G.scale;
+		var owner = svgAgile.activeNode.ownerSVGElement;
+		var point = owner.createSVGPoint();
+		
+		point.x = G.center.pageX;
+		point.y = G.center.pageY;
+		
+		var CTM = owner.getScreenCTM();
+		point = point.matrixTransform(CTM.inverse());
+		
+		var newMatrix = avgAgile.anchor.matrix.translate((1-scale)*point.x,(1-scale)*point.y).scale(scale);
+		var newTransform = owner.createSVGTransform();
+		
+		newTransform.setMatrix(newMatrix);
+		
+		svgAgile.activeNode.transform.baseVal.initialize(newTransform);
+	},
 	release: function (evt) {
 		svgAgile.activity('off');
 	},

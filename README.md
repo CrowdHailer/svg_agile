@@ -32,4 +32,4 @@ Insert the following script tags to the main html document
 
 Initialise svgAgile with the init call passing the svg group to manipulate as an argument
 
-   svgAgile.init('manoeuvrable-svg');
+    svgAgile.init('manoeuvrable-svg');

@@ -23,6 +23,10 @@ This library is used by setting up a static viewboc for inline svg and to use th
 
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 
+To justify the svg use the included style sheet.
+
+    <link href="style/svg_style.css" rel="stylesheet" />
+	
 Insert the following script tags to the main html document
 
     <script src="js/hammer.min.js"></script>
